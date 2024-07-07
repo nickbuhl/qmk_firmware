@@ -6,7 +6,7 @@
 #define _RAISE 2
 #define _NUMPAD 3
 
-//#define TAB_NUM LT(NUMPAD,KC_TAB)
+#define TAB_NAV LT(RAISE,KC_TAB)
 
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   SFT_T(KC_Z), KC_X,   KC_C,    KC_D,    KC_V,    KC_LCTL, SH_TT,            _______, KC_RALT, KC_K,    KC_H,    KC_COMM, KC_DOT, RSFT_T(KC_SLSH),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                  RAISE, SFT_T(KC_BSPC), KC_LGUI,              KC_ENT, RSFT_T(KC_SPC), LOWER 
+                                  TAB_NAV, SFT_T(KC_BSPC), KC_LGUI,              KC_ENT, RSFT_T(KC_SPC), LOWER 
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
