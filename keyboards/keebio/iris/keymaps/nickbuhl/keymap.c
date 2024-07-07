@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-//#include "features/custom_shift_keys.h"
+#include "features/custom_shift_keys.h"
 
 #define _COLEMAK 0
 #define _LOWER 1
@@ -21,33 +21,33 @@ enum custom_keycodes {
 };
 
 // Key Overrides
-const key_override_t period_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_DQUO);
-const key_override_t comma_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_QUOT);
-const key_override_t lt_key_override     = ko_make_basic(MOD_MASK_SHIFT, KC_LT, KC_GT);
-const key_override_t lcbr_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_RCBR);
-const key_override_t lbrc_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, KC_RBRC);
+// const key_override_t period_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_DQUO);
+// const key_override_t comma_key_override  = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_QUOT);
+// const key_override_t lt_key_override     = ko_make_basic(MOD_MASK_SHIFT, KC_LT, KC_GT);
+// const key_override_t lcbr_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_RCBR);
+// const key_override_t lbrc_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, KC_RBRC);
 
-const key_override_t **key_overrides = (const key_override_t *[]){
-  &period_key_override,
-  &comma_key_override,
-  &lt_key_override,
-  &lcbr_key_override,
-  &lbrc_key_override,
-  NULL
-};
+// const key_override_t **key_overrides = (const key_override_t *[]){
+//   &period_key_override,
+//   &comma_key_override,
+//   &lt_key_override,
+//   &lcbr_key_override,
+//   &lbrc_key_override,
+//   NULL
+// };
 
 //  Using Custom shift keys
 //  Pascal Getreuer, 2021-10-30 (updated 2023-01-04) 
-//const custom_shift_key_t custom_shift_keys[] = {
-//  {KC_DOT , KC_DQUO},  // Shift . is "
-//  {KC_COMM, KC_QUOT},  // Shift , is '
-//  {KC_LT,   KC_GT  },  // Shift < is >
-//  {KC_LCBR, KC_RCBR},  // Shift { is } 
-//  {KC_LBRC, KC_RBRC},  // Shift [ is ] 
-//};
+const custom_shift_key_t custom_shift_keys[] = {
+ {KC_DOT , KC_DQUO},  // Shift . is "
+ {KC_COMM, KC_QUOT},  // Shift , is '
+ {KC_LT,   KC_GT  },  // Shift < is >
+ {KC_LCBR, KC_RCBR},  // Shift { is } 
+ {KC_LBRC, KC_RBRC},  // Shift [ is ] 
+};
 
-//uint8_t NUM_CUSTOM_SHIFT_KEYS =
-//    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+   sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 // Using Auto-Shift and adding the above custom shift keys
 //bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
@@ -190,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //if (!process_custom_shift_keys(keycode, record)) { return false; }
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
   
   switch (keycode) {
     case COLEMAK:

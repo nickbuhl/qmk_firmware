@@ -28,19 +28,19 @@ bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
 #endif  // CUSTOM_SHIFT_KEYS_NEGMODS != 0
           ) {
       // Continue default handling if this is a tap-hold key being held.
-      if ((IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode)) &&
-          record->tap.count == 0) {
-        return true;
-      }
+      // if ((IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode)) &&
+      //     record->tap.count == 0) {
+      //   return true;
+      // }
 
       // Search for a custom shift key whose keycode is `keycode`.
       for (int i = 0; i < NUM_CUSTOM_SHIFT_KEYS; ++i) {
         if (keycode == custom_shift_keys[i].keycode) {
           registered_keycode = custom_shift_keys[i].shifted_keycode;
-          if (IS_QK_MODS(registered_keycode) &&  // Should key be shifted?
-              (QK_MODS_GET_MODS(registered_keycode) & MOD_LSFT) != 0) {
-            register_code16(registered_keycode);  // If so, press directly.
-          } else {
+          // if (IS_QK_MODS(registered_keycode) &&  // Should key be shifted?
+          //     (QK_MODS_GET_MODS(registered_keycode) & MOD_LSFT) != 0) {
+          //   register_code16(registered_keycode);  // If so, press directly.
+          // } else {
             // If not, cancel shift mods, press the key, and restore mods.
             del_weak_mods(MOD_MASK_SHIFT);
 #ifndef NO_ACTION_ONESHOT
@@ -49,7 +49,7 @@ bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
             unregister_mods(MOD_MASK_SHIFT);
             register_code16(registered_keycode);
             set_mods(mods);
-          }
+          // }
           return false;
         }
       }

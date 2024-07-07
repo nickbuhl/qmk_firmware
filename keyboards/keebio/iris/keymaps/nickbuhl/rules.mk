@@ -3,7 +3,7 @@
 #
 AUTO_SHIFT_ENABLE = no
 SWAP_HANDS_ENABLE = yes
-KEY_OVERRIDE_ENABLE = yes
+# KEY_OVERRIDE_ENABLE = yes
 
 # Space Optimizations
 LTO_ENABLE = yes
@@ -16,4 +16,4 @@ GRAVE_ESC_ENABLE = no
 #MAGIC_ENABLE = no
 
 # Custom Shift Codes
-#SRC += features/custom_shift_keys.c
+SRC += features/custom_shift_keys.c
