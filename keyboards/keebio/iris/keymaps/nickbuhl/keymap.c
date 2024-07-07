@@ -4,7 +4,7 @@
 #define _COLEMAK 0
 #define _LOWER 1
 #define _RAISE 2
-//#define _NUMPAD 3
+#define _NUMPAD 3
 
 //#define TAB_NUM LT(NUMPAD,KC_TAB)
 
@@ -12,12 +12,12 @@ enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
   LOWER,
   RAISE,
-  //NUMPAD,
-  UNAME//,
-  //DSK_LFT,
-  //DSK_RGT,
-  //DSK_WIN,
-  //DSK_APP
+  NUMPAD,
+  UNAME,
+  DSK_LFT,
+  DSK_RGT,
+  DSK_WIN,
+  DSK_APP
 };
 
 // Key Overrides
@@ -50,69 +50,69 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 // Using Auto-Shift and adding the above custom shift keys
-bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
-   switch(keycode) {
-       case KC_DOT:
-       case KC_COMM:
-       case KC_LT:
-       case KC_LCBR:
-       case KC_LBRC:
-           return true;
-       default:
-            return false;
-    }
-}
+// bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+//    switch(keycode) {
+//        case KC_DOT:
+//        case KC_COMM:
+//        case KC_LT:
+//        case KC_LCBR:
+//        case KC_LBRC:
+//            return true;
+//        default:
+//             return false;
+//     }
+// }
 
-void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
-    switch(keycode) {
-        case KC_DOT:
-            register_code16((!shifted) ? KC_DOT : KC_DQUO);
-            break;
-        case KC_COMM:
-            register_code16((!shifted) ? KC_COMM : KC_QUOT);
-            break;
-        case KC_LT:
-            register_code16((!shifted) ? KC_LT : KC_GT);
-            break;
-        case KC_LCBR:
-            register_code16((!shifted) ? KC_LCBR : KC_RCBR);
-            break;
-        case KC_LBRC:
-            register_code16((!shifted) ? KC_LBRC : KC_RBRC);
-            break;
-        default:
-            if (shifted) {
-                add_weak_mods(MOD_BIT(KC_LSFT));
-            }
-            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-            register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
-    }
-}
+// void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
+//     switch(keycode) {
+//         case KC_DOT:
+//             register_code16((!shifted) ? KC_DOT : KC_DQUO);
+//             break;
+//         case KC_COMM:
+//             register_code16((!shifted) ? KC_COMM : KC_QUOT);
+//             break;
+//         case KC_LT:
+//             register_code16((!shifted) ? KC_LT : KC_GT);
+//             break;
+//         case KC_LCBR:
+//             register_code16((!shifted) ? KC_LCBR : KC_RCBR);
+//             break;
+//         case KC_LBRC:
+//             register_code16((!shifted) ? KC_LBRC : KC_RBRC);
+//             break;
+//         default:
+//             if (shifted) {
+//                 add_weak_mods(MOD_BIT(KC_LSFT));
+//             }
+//             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
+//             register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
+//     }
+// }
 
-void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
-    switch(keycode) {
-        case KC_DOT:
-            unregister_code16((!shifted) ? KC_DOT : KC_DQUO);
-            break;
-        case KC_COMM:
-            unregister_code16((!shifted) ? KC_COMM : KC_QUOT);
-            break;
-        case KC_LT:
-            unregister_code16((!shifted) ? KC_LT : KC_GT);
-            break;
-        case KC_LCBR:
-            unregister_code16((!shifted) ? KC_LCBR : KC_RCBR);
-            break;
-        case KC_LBRC:
-            unregister_code16((!shifted) ? KC_LBRC : KC_RBRC);
-            break;
-        default:
-            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-            // The IS_RETRO check isn't really necessary here, always using
-            // keycode & 0xFF would be fine.
-            unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
-    }
-}
+// void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
+//     switch(keycode) {
+//         case KC_DOT:
+//             unregister_code16((!shifted) ? KC_DOT : KC_DQUO);
+//             break;
+//         case KC_COMM:
+//             unregister_code16((!shifted) ? KC_COMM : KC_QUOT);
+//             break;
+//         case KC_LT:
+//             unregister_code16((!shifted) ? KC_LT : KC_GT);
+//             break;
+//         case KC_LCBR:
+//             unregister_code16((!shifted) ? KC_LCBR : KC_RCBR);
+//             break;
+//         case KC_LBRC:
+//             unregister_code16((!shifted) ? KC_LBRC : KC_RBRC);
+//             break;
+//         default:
+//             // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
+//             // The IS_RETRO check isn't really necessary here, always using
+//             // keycode & 0xFF would be fine.
+//             unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
+//     }
+// }
 
 // Hand swap to mirror keyboard and allow for one-hand typing.
 // [row][col] maps to [col][row] in keypos_t
@@ -139,9 +139,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_TAB,                             KC_RSFT, KC_M,    KC_N,    KC_E,    KC_I,    KC_O,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_LCTL, SH_TT,            _______, KC_RALT, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
+  SFT_T(KC_Z), KC_X,   KC_C,    KC_D,    KC_V,    KC_LCTL, SH_TT,            _______, KC_RALT, KC_K,    KC_H,    KC_COMM, KC_DOT, RSFT_T(KC_SLSH),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    RAISE,   KC_BSPC, KC_LGUI,                   KC_ENT,   KC_SPC,  LOWER 
+                                  RAISE, SFT_T(KC_BSPC), KC_LGUI,              KC_ENT, RSFT_T(KC_SPC), LOWER 
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -171,21 +171,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     XXXXXXX, _______,  _______,                   _______, _______, XXXXXXX
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
-  )//,
+  ),
 
-  // [_NUMPAD] = LAYOUT(
-  // //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-  //    KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  // //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-  //    _______, _______, DSK_WIN, _______, _______, _______,                            _______, KC_LBRC,    KC_7,    KC_8,    KC_9,  KC_EQL,
-  // //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-  //    _______, DSK_LFT, DSK_APP, DSK_RGT, KC_F11,  _______,                             _______, KC_LCBR,    KC_4,    KC_5,    KC_6, KC_MINS,
-  // //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-  //    _______, _______, _______, _______, _______, _______, _______,          _______, _______,   KC_LT,    KC_1,    KC_2,    KC_3, KC_BSLS,
-  // //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-  //                                   XXXXXXX, XXXXXXX, _______,                   _______,    KC_0,  XXXXXXX
-  //                               // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
-  // )
+  [_NUMPAD] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, DSK_WIN, _______, _______, _______,                            _______, KC_LBRC,    KC_7,    KC_8,    KC_9,  KC_EQL,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, DSK_LFT, DSK_APP, DSK_RGT, KC_F11,  _______,                             _______, KC_LCBR,    KC_4,    KC_5,    KC_6, KC_MINS,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LSFT, KC_LCTL, KC_LGUI, KC_LALT, _______, _______, _______,          _______, _______,   KC_LT,    KC_1,    KC_2,    KC_3, KC_BSLS,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    XXXXXXX, XXXXXXX, _______,                   _______,    KC_0,  XXXXXXX
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  )
 
 };
 
@@ -218,14 +218,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 
-    // case NUMPAD:
-    //   if (record->event.pressed) {
-    //     layer_on(_NUMPAD);
-    //   } else {
-    //     layer_off(_NUMPAD);
-    //   }
-    //   return false;
-    //   break;
+    case NUMPAD:
+      if (record->event.pressed) {
+        layer_on(_NUMPAD);
+      } else {
+        layer_off(_NUMPAD);
+      }
+      return false;
+      break;
 
     case UNAME:
       if (record->event.pressed) {
@@ -243,33 +243,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //   return false;
     //   break;
 
-    // case DSK_LFT:
-    //   if (record->event.pressed) {
-    //     SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
-    //   }
-    //   return false;
-    //   break;
+    case DSK_LFT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
+      }
+      return false;
+      break;
 
-    // case DSK_RGT:
-    //   if (record->event.pressed) {
-    //     SEND_STRING(SS_LCTL(SS_TAP(X_RGHT)));
-    //   }
-    //   return false;
-    //   break;      
+    case DSK_RGT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_RGHT)));
+      }
+      return false;
+      break;      
 
-    // case DSK_WIN:
-    //   if (record->event.pressed) {
-    //     SEND_STRING(SS_LCTL(SS_TAP(X_UP)));
-    //   }
-    //   return false;
-    //   break;      
+    case DSK_WIN:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_UP)));
+      }
+      return false;
+      break;      
 
-    // case DSK_APP:
-    //   if (record->event.pressed) {
-    //     SEND_STRING(SS_LCTL(SS_TAP(X_DOWN)));
-    //   }
-    //   return false;
-    //   break;    
+    case DSK_APP:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_DOWN)));
+      }
+      return false;
+      break;    
 
   }
   return true;
