@@ -1,7 +1,7 @@
 # Build Options
 #   change yes to no to disable
 #
-AUTO_SHIFT_ENABLE = no
+AUTO_SHIFT_ENABLE = yes
 SWAP_HANDS_ENABLE = yes
 # KEY_OVERRIDE_ENABLE = yes
 
