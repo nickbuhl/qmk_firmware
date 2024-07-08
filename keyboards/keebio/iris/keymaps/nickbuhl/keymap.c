@@ -2,16 +2,18 @@
 #include "features/custom_shift_keys.h"
 
 #define _COLEMAK 0
-#define _LOWER 1
-#define _RAISE 2
+#define _NUM 1
+#define _NAV 2
 #define _NUMPAD 3
 
-#define TAB_NAV LT(RAISE,KC_TAB)
+#define TAB_NAV LT(NAV,KC_TAB)
+#define S_BKSPC SFT_T(KC_BSPC)
+#define S_SPACE RSFT_T(KC_SPC)
 
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
-  LOWER,
-  RAISE,
+  NUM,
+  NAV,
   NUMPAD,
   UNAME,
   DSK_LFT,
@@ -38,6 +40,7 @@ enum custom_keycodes {
 
 //  Using Custom shift keys
 //  Pascal Getreuer, 2021-10-30 (updated 2023-01-04) 
+//  Commented out code that generated errors on compile.
 const custom_shift_key_t custom_shift_keys[] = {
  {KC_DOT , KC_DQUO},  // Shift . is "
  {KC_COMM, KC_QUOT},  // Shift , is '
@@ -139,13 +142,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_TAB,                             KC_RSFT, KC_M,    KC_N,    KC_E,    KC_I,    KC_O,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-  SFT_T(KC_Z), KC_X,   KC_C,    KC_D,    KC_V,    KC_LCTL, SH_TT,            _______, KC_RALT, KC_K,    KC_H,    KC_COMM, KC_DOT, RSFT_T(KC_SLSH),
+  SFT_T(KC_Z), KC_X,   KC_C,    KC_D,    KC_V,    KC_LCTL, SH_TT,            SH_TT,   KC_RALT, KC_K,    KC_H,    KC_COMM, KC_DOT, RSFT_T(KC_SLSH),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                  TAB_NAV, SFT_T(KC_BSPC), KC_LGUI,              KC_ENT, RSFT_T(KC_SPC), LOWER 
+                                  TAB_NAV,   S_BKSPC, KC_LGUI,                   KC_ENT,  S_SPACE, NUM 
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
-  [_LOWER] = LAYOUT(
+  [_NUM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      _______, RGB_SAI, _______, _______, BL_STEP, RGB_TOG,                            BL_TOGG, BL_BRTG, _______, _______, RGB_SAD, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -155,11 +158,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_LCTL, KC_LGUI, KC_LALT, _______, _______, _______,          _______, _______, _______, KC_RALT, KC_RGUI, KC_RCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    XXXXXXX, _______, _______,                  _______,  _______, XXXXXXX
+                                    KC_TAB,  _______, _______,                  _______,  _______, XXXXXXX
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
-  [_RAISE] = LAYOUT(
+  [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      RGB_HUI, RGB_SPI, RGB_MOD, RGB_VAI, BL_INC,  _______,                            BL_DEC,  RGB_VAD, RGB_RMOD,RGB_SPD, RGB_HUD, CG_TOGG,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -200,20 +203,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 
-    case LOWER:
+    case NUM:
       if (record->event.pressed) {
-        layer_on(_LOWER);
+        layer_on(_NUM);
       } else {
-        layer_off(_LOWER);
+        layer_off(_NUM);
       }
       return false;
       break;
 
-    case RAISE:
+    case NAV:
       if (record->event.pressed) {
-        layer_on(_RAISE);
+        layer_on(_NAV);
       } else {
-        layer_off(_RAISE);
+        layer_off(_NAV);
       }
       return false;
       break;

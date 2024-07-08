@@ -27,6 +27,7 @@ bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
         && (mods & (CUSTOM_SHIFT_KEYS_NEGMODS)) == 0
 #endif  // CUSTOM_SHIFT_KEYS_NEGMODS != 0
           ) {
+            // Customized because the functions in the if condition generated errors
       // Continue default handling if this is a tap-hold key being held.
       // if ((IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode)) &&
       //     record->tap.count == 0) {
@@ -37,6 +38,7 @@ bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
       for (int i = 0; i < NUM_CUSTOM_SHIFT_KEYS; ++i) {
         if (keycode == custom_shift_keys[i].keycode) {
           registered_keycode = custom_shift_keys[i].shifted_keycode;
+          // Customized because the functions in the if condition generated errors
           // if (IS_QK_MODS(registered_keycode) &&  // Should key be shifted?
           //     (QK_MODS_GET_MODS(registered_keycode) & MOD_LSFT) != 0) {
           //   register_code16(registered_keycode);  // If so, press directly.
