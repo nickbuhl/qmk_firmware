@@ -6,9 +6,9 @@
 #define _NAV 2
 #define _NUMPAD 3
 
-#define TAB_NAV LT(NAV,KC_TAB)
-#define S_BKSPC SFT_T(KC_BSPC)
-#define S_SPACE RSFT_T(KC_SPC)
+#define TAB_NAV LT(_NAV,KC_TAB)
+#define C_BKSPC LCTL_T(KC_BSPC)
+//#define S_SPACE RSFT_T(KC_SPC)
 
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   SFT_T(KC_Z), KC_X,   KC_C,    KC_D,    KC_V,    KC_LCTL, SH_TT,            SH_TT,   KC_RALT, KC_K,    KC_H,    KC_COMM, KC_DOT, RSFT_T(KC_SLSH),
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                  TAB_NAV,   S_BKSPC, KC_LGUI,                   KC_ENT,  S_SPACE, NUM 
+                                    TAB_NAV, C_BKSPC, KC_LGUI,                   KC_ENT,  KC_SPC,  NUM 
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_INS,  KC_PSCR, KC_SCRL, KC_PAUS, KC_DEL,  _______, _______,          _______, _______, KC_ESC,  KC_HOME, KC_END,  KC_PGUP, KC_PGDN,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    XXXXXXX, _______,  _______,                   _______, _______, XXXXXXX
+                                    XXXXXXX, NUMPAD,  _______,                   _______, _______, XXXXXXX
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
